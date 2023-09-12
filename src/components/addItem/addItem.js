@@ -15,13 +15,23 @@ class addItem extends Component {
   };
 
   handleSubmit = (e) => {
+    console.log(this.props);
     e.preventDefault();
+    if (this.state.quantity < 1) {
+      this.props.onError("please enter a valid quantity");
+      return;
+    }
+    if (this.state.price < 1) {
+      this.props.onError("please enter a valid price");
+      return;
+    }
     this.props.add(this.state);
     this.setState({
       product: "",
       price: "",
       quantity: 1,
     });
+    this.props.onError("");
   };
 
   render() {

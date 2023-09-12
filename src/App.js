@@ -10,6 +10,7 @@ class App extends Component {
       { id: 1, product: "Pen", price: 2, quantity: 1 },
       { id: 2, product: "Book", price: 10, quantity: 1 },
     ],
+    error: "",
   };
 
   deleteItem = (id) => {
@@ -28,6 +29,10 @@ class App extends Component {
     let items = this.state.items;
     items.push(item);
     this.setState({ items: items });
+  };
+
+  handleError = (error) => {
+    this.setState({ items: this.state.items, error: error });
   };
 
   plusItem = (id) => {
@@ -65,9 +70,10 @@ class App extends Component {
             plus={this.plusItem}
             minus={this.minusItem}
           />
-          <AddItem add={this.addItem} />
+          <AddItem add={this.addItem} onError={this.handleError} />
           <Total items={this.state.items} />
         </div>
+        {this.state.error && <div className="error">{this.state.error}</div>}
       </div>
     );
   }
